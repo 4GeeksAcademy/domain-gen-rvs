@@ -10,29 +10,47 @@ let adj = ["great", "big"];
 let noun = ["jogger", "racoon"];
 let domain = [".net", ".com", ".org", ".com.pa"];
 
-function generaDominio() {
-  pronoun = pronoun[Math.floor(Math.random() * pronoun.length)];
-  adj = adj[Math.floor(Math.random() * adj.length)];
-  noun = noun[Math.floor(Math.random() * noun.length)];
-  domain = domain[Math.floor(Math.random() * domain.length)];
-  return pronoun + adj + noun + domain;
-}
+let nuevoArray = [];
+pronoun.forEach(pronombre => {
+  adj.forEach(adjetivo => {
+    noun.forEach(sustantivo => {
+      domain.forEach(dominio => {
+        nuevoArray.push([pronombre + adjetivo + sustantivo + dominio]);
+      });
+    });
+  });
+});
 
+console.log(nuevoArray);
+
+let tabla = document.querySelector("#tbody");
 let button = document.querySelector("#boton");
-let input = document.querySelector("#dominio");
 let reset = document.querySelector("#reset");
 let botonClickeado = false;
 
+const generarTabla = () => {
+  tabla.innerHTML = "";
+  for (const elemento of nuevoArray) {
+    let tr = document.createElement("tr");
+    tr.classList.add("table-dark", "table-hover");
+    for (let j = 0; j < 1; j++) {
+      let td = document.createElement("td");
+      td.textContent = elemento[j];
+      tr.appendChild(td);
+    }
+    tabla.appendChild(tr);
+  }
+};
+
 button.addEventListener("click", function() {
   if (!botonClickeado) {
-    let generado = generaDominio();
-    input.value = generado;
+    generarTabla();
     botonClickeado = true;
   }
 });
 
 reset.addEventListener("click", function() {
-  input.value = " ";
+  tabla.innerHTML = "";
   botonClickeado = false;
   location.reload();
 });
