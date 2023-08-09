@@ -21,8 +21,6 @@ pronoun.forEach(pronombre => {
   });
 });
 
-console.log(nuevoArray);
-
 let tabla = document.querySelector("#tbody");
 let button = document.querySelector("#boton");
 let reset = document.querySelector("#reset");
